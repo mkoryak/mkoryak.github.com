@@ -147,11 +147,6 @@ $table.floatThead({
                <td>0</td>
                <td>Offset from the top of the <b>window</b> where the floating header will 'stick' when scrolling down</td>
              </tr><tr>
-               <td>getSizingRow</td>
-               <td>function</td>
-               <td>null</td>
-               <td>The plugin uses the first row in the table body to calculate floated header's column sizes. It expects this row to contain <code>&lt;td&gt;</code>s with colspan of <strong>at most 1</strong>. If the first row does not meet that requirement, you must implement this function.<br/><br/><strong>Returns:</strong> jquery object containing tds. Length of this element much match the number of columns in the table.<br/><small><a href="/floatThead/examples/row-groups.htm">example use</a></small></td>
-             </tr><tr>
                <td>useAbsolutePositioning</td>
                <td>boolean</td>
                <td>true</td>
@@ -283,19 +278,12 @@ $('table.demo2').floatThead({
 	<div class='span12' id='download'>
 		<h1>Download</h1>
 
-			This plugin is in beta.  <br/>
+
 			You can grab the latest non-minified version at <a href='https://raw.github.com/mkoryak/floatThead/master/jquery.floatThead.js'>github</a><br/>
 			and a minified version <a href='/floatThead/jquery.floatThead.min.js'>here</a> (4.6K <small>Minified version can lag behind latest version!!)</small> <br/>
 			To report issues, visit the project's <a href='https://github.com/mkoryak/floatThead'>github repository page</a>.
-			<br/><br/>
-			NOTE: The code included on this page is used for developing new features and fixing bugs. Use the code in github.
-			<br/><br/>
-			<h4>TODO:</h4>
-			<ul>
-				<li>fix spellign!</li>
-				<li>stablize code</li>
-				<li>cleanup code</li>
-			</ul>
+			
+			
 				
 
 	</div>

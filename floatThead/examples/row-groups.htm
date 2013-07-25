@@ -6,7 +6,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://rawgithub.com/mkoryak/floatThead/jquery19support/jquery.floatThead.js"></script>
 
-    <!-- <script type='text/javascript' src="../jquery.floatThead.js"></script> -->
+     <!--<script type='text/javascript' src="../jquery.floatThead.js"></script> -->
 
     <script type='text/javascript' src="../site.js"></script>
     <script type='text/javascript' src="../lib/bootstrap.js"></script>
@@ -69,19 +69,12 @@
 <div class='row'>
     <div class='span12'>
         <h1>Colspans in TBODY</h1>
-        Because of the mechanism this plugin uses the size the floated header, it expects the first table row
-        (in tbody) to contain the same number of columns as the header.<br/><br/>
-        This works for 90% of the tables, but some tables might have some rows that contain cells with colspans.
-        If this is the case, you as a developer must specify how to find a row the plugin can use for sizing via the <code>getSizingRow</code> function.<br/><br/>
-        <strong>IMPORTANT: If you don't use the <code>getSizingRow</code> option - floatThead will still work properly in firefox but not in chrome.</strong>
+        As of version 1.0 of the plugin, you do not need to specify any special config options for chrome.  
         <br/><br/><br/>
 <pre>
 $(function(){
     $('#demo').floatThead({
-        scrollingTop: 81,
-        getSizingRow: function($table){
-            return $table.find('tbody tr:not(.grouping):first td');
-        }
+        scrollingTop: 81
     });
 });
 </pre>
@@ -196,16 +189,14 @@ $(function(){
 </div>
 </div>
 
+
+<br><br><br><br><br><br><br>
 <script type="text/javascript">
     $(function(){
         $('#demo').floatThead({
-            scrollingTop: 81,
-            getSizingRow: function($table){
-                return $table.find('tbody tr:not(.grouping):first td');
-            }
-        });
+            scrollingTop: 81
+        }); 
     });
-
 </script>
 
 <!-- Start of StatCounter Code for Default Guide -->

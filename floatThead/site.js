@@ -3,13 +3,10 @@
 $(function(){
 
 	var href = window.location.href;
+    var pages = ['border-collapse.htm', 'datatable-with-reflow.htm', 'empty-table.htm', 'init-exceptions.htm', 'positioning-options.htm', 'row-groups.htm'];
 
 	var $nav = $("ul#dynamic-nav");
-	$.get("/floatThead/examples/", function(data){
-		var $page = $(data);
-		var list = [];
-		$page.find("a:contains(.htm)").each(function(){
-			var fn = $(this).text();
+	._each(pages, function(fn){
 			var url = "/floatThead/examples/"+fn;
 			var name = fn.replace(/-/g, ' ').replace(/(.*?)\.htm/, '$1');
 			var rx = new RegExp(fn+"$");
