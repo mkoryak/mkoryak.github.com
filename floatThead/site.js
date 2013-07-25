@@ -6,7 +6,7 @@ $(function(){
     var pages = ['border-collapse.htm', 'datatable-with-reflow.htm', 'empty-table.htm', 'init-exceptions.htm', 'positioning-options.htm', 'row-groups.htm'];
 
 	var $nav = $("ul#dynamic-nav");
-	._each(pages, function(fn){
+	_.each(pages, function(fn){
 			var url = "/floatThead/examples/"+fn;
 			var name = fn.replace(/-/g, ' ').replace(/(.*?)\.htm/, '$1');
 			var rx = new RegExp(fn+"$");
