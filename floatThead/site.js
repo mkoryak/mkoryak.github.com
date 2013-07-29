@@ -3,8 +3,9 @@
 $(function(){
 
 	var href = window.location.href;
-    var pages = ['border-collapse.htm', 'datatable-with-reflow.htm', 'empty-table.htm', 'init-exceptions.htm', 'positioning-options.htm', 'row-groups.htm'];
+    var pages = ['big-thead.htm', 'border-collapse.htm', 'datatable-with-reflow.htm', 'empty-table.htm', 'init-exceptions.htm', 'positioning-options.htm', 'row-groups.htm'];
 
+    var list = [];
 	var $nav = $("ul#dynamic-nav");
 	_.each(pages, function(fn){
 			var url = "/floatThead/examples/"+fn;
@@ -12,9 +13,9 @@ $(function(){
 			var rx = new RegExp(fn+"$");
 			var active = window.location.href.match(rx) ? "active" : "";
 			list.push("<li class='"+active+"'><a href='"+url+"'>"+name+"</a>");
-		});
-		$nav.html(list.join(''));
 	});
+	$nav.html(list.join(''));
+
 
 	var $tables = $('.load-table');
 	if($tables.length){
