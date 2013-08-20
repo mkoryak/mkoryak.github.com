@@ -2,7 +2,7 @@
  * jQuery.floatThead
  * Copyright (c) 2012 - 2013 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
- * Date: 8/25/13
+ * Date: 8/20/13
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
@@ -16,14 +16,14 @@
  * Tested on FF13+, Chrome 21+, IE9, IE8
  *
  * @author Misha Koryak
- * @version 1.0.0
+ * @version 1.0.1
  */
 // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
 // @output_file_name jquery.floatThead.min.js
 // ==/ClosureCompiler==
 /**
- * @preserve jQuery.floatThead 1.0.0
+ * @preserve jQuery.floatThead 1.0.1
  * Copyright (c) 2013 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
  */
@@ -32,6 +32,9 @@
 //browser stuff
 var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];b.innerHTML="<!--[if gt IE "+ ++a+"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
 var isChrome = function(){
+  if(ieVersion){
+    return false;
+  }
   var $table = $("<table><colgroup><col></colgroup><tbody><tr><td style='width:10px'></td></tbody></table>");
   $('body').append($table);
   var width = $table.find('col').width();
@@ -93,15 +96,17 @@ function windowResize(debounceMs, cb){
  * @return {Number}
  */
 function scrollbarWidth() {
-    var $div = $('<div/>')
-    .css({ width: 100, height: 100, overflow: 'auto', position: 'absolute', top: -1000, left: -1000 })
-    .prependTo('body').append('<div/>').find('div')
-    .css({ width: '100%', height: 200 });
-    var scrollbarWidth = 100 - $div.width();
-    $div.parent().remove();
-    return scrollbarWidth;
+  var $div = $( //borrowed from anti-scroll
+    '<div style="width:50px;height:50px;overflow-y:scroll;'
+      + 'position:absolute;top:-200px;left:-200px;"><div style="height:100px;width:100%">'
+      + '</div>'
+  );
+  $('body').append($div);
+  var w1 = $div.innerWidth();
+  var w2 = $('div', $div).innerWidth();
+  $div.remove();
+  return w1 - w2;
 }
-
 /**
  * Check if a given table has been datatableized (http://datatables.net)
  * @param $table
