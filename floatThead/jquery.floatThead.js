@@ -331,6 +331,7 @@ $.fn.floatThead = function(map){
                 $table.append($header);
                 $table.css(layoutAuto);
                 $floatTable.css(layoutAuto);
+                $tableCells.css('width', 'auto');
             }
         }
         function changePositioning(isAbsolute){
