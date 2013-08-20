@@ -186,8 +186,8 @@ $.fn.floatThead = function(map){
         var wrappedContainer = false; //used with absolute positioning enabled. did we need to wrap the scrollContainer/table with a relative div?
         var absoluteToFixedOnScroll = ieVersion && !locked && useAbsolutePositioning; //on ie using absolute positioning doesnt look good with window scrolling, so we change positon to fixed on scroll, and then change it back to absolute when done.
         var $floatTable = $("<table/>");
-        var $floatColGroup = $("<colgroup/>");
-        var $tableColGroup = $("<colgroup/>");
+        var $floatColGroup = $("<colgroup class='floatColGroup'/>");
+        var $tableColGroup = $("<colgroup class='tableColGroup'/>");
 
         var $floatContainer = $('<div style="overflow: hidden;"></div>');
         var $newHeader = $("<thead/>");
@@ -328,7 +328,7 @@ $.fn.floatThead = function(map){
             if(headerFloated){
                 headerFloated = false;
                 $newHeader.detach();
-                $table.prepend($header);
+                $table.append($header);
                 $table.css(layoutAuto);
                 $floatTable.css(layoutAuto);
             }
