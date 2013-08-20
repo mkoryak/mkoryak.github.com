@@ -328,7 +328,7 @@ $.fn.floatThead = function(map){
             if(headerFloated){
                 headerFloated = false;
                 $newHeader.detach();
-                $table.append($header);
+                $table.prepend($header);
                 $table.css(layoutAuto);
                 $floatTable.css(layoutAuto);
                 $tableCells.css('width', 'auto');
