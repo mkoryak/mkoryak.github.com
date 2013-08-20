@@ -90,6 +90,31 @@ $(function(){
                 </tr>
                 </thead>
                 <tbody>
+                <tr>
+                    <td>keyboard</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Closes the modal when escape key is pressed</td>
+                </tr>
+                <tr>
+                    <td>show</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>Shows the modal when initialized.</td>
+                </tr>
+                </tbody>
+                </table>
+
+                <table id='demo2'>
+                <thead>
+                <tr>
+                    <th style="width: 100px;">Name</th>
+                    <th style="width: 50px;">type</th>
+                    <th style="width: 50px;">default</th>
+                    <th>description</th>
+                </tr>
+                </thead>
+                <tbody>
                 <tr class="grouping">
                     <td colspan="4">some group or something</td>
                 </tr>
@@ -193,7 +218,7 @@ $(function(){
 <br><br><br><br><br><br><br>
 <script type="text/javascript">
     $(function(){
-        $('#demo').floatThead({
+        $('#demo, #demo2').floatThead({
             scrollingTop: 81
         }); 
     });
