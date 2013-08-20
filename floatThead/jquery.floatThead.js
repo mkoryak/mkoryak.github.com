@@ -141,7 +141,7 @@ $.fn.floatThead = function(map){
         this.filter('table').each(function(){
             var obj = $(this).data('floatThead-attached');
             if(obj && _.isFunction(obj[command])){
-                r = obj[command]();
+                var r = obj[command]();
                 if(typeof r !== 'undefined'){
                     ret = r;
                 }
@@ -175,32 +175,38 @@ $.fn.floatThead = function(map){
         var useAbsolutePositioning = opts.useAbsolutePositioning; 
         if(useAbsolutePositioning == null){ //defaults: locked=true, !locked=false
             useAbsolutePositioning = opts.scrollContainer($table).length;
-        } 
+        }
 
-        var $fthGrp = $('<fthfoot style="display:table-footer-group;"/>');
-       
+        //created elements in chrome
+        var $fthGrp = $([]);
+        var $fthRow = $([]);
+        var $fthCells = $([]);
+
         var locked = $scrollContainer.length > 0;
         var wrappedContainer = false; //used with absolute positioning enabled. did we need to wrap the scrollContainer/table with a relative div?
         var absoluteToFixedOnScroll = ieVersion && !locked && useAbsolutePositioning; //on ie using absolute positioning doesnt look good with window scrolling, so we change positon to fixed on scroll, and then change it back to absolute when done.
         var $floatTable = $("<table/>");
         var $floatColGroup = $("<colgroup/>");
         var $tableColGroup = $("<colgroup/>");
-        var $fthRow = $('<fthrow style="display:table-row;height:0;"/>'); //created unstyled elements
+
         var $floatContainer = $('<div style="overflow: hidden;"></div>');
         var $newHeader = $("<thead/>");
         var $sizerRow = $('<tr class="size-row"/>');
         var $sizerCells = $([]);
         var $tableCells = $([]); //used for sizing - either $sizerCells or $tableColGroup cols. $tableColGroup cols are only created in chrome for borderCollapse:collapse because of a chrome bug.
         var $headerCells = $([]);
-        var $fthCells = $([]); //created elements
-        $fthGrp.append($fthRow);
+
+
         $newHeader.append($sizerRow);
         $header.detach();
 
         $table.prepend($newHeader); 
         $table.prepend($tableColGroup);
-        if(isChrome){
-            $table.append($fthGrp);
+        if(isChrome){ //created unstyled elements
+          $fthRow = $('<fthtr style="display:table-row;height:0;"/>');
+          $fthGrp = $('<fthfoot style="display:table-footer-group;"/>');
+          $fthGrp.append($fthRow);
+          $table.append($fthGrp);
         }
         
         $floatTable.append($floatColGroup);
@@ -285,7 +291,7 @@ $.fn.floatThead = function(map){
                 for(var x = 0; x < count; x++){
                     cells.push('<'+opts.cellTag+' class="floatThead-col-'+x+'"/>');
                     cols.push('<col/>');
-                    psuedo.push("<fthcell style='display:table-cell;height:0;width:auto;'/>");
+                    psuedo.push("<fthtd style='display:table-cell;height:0;width:auto;'/>");
                 }
 
                 cols = cols.join('');
@@ -294,7 +300,7 @@ $.fn.floatThead = function(map){
                 if(isChrome){
                     psuedo = psuedo.join('');
                     $fthRow.html(psuedo);
-                    $fthCells = $fthRow.find('fthcell')
+                    $fthCells = $fthRow.find('fthtd');
                 }
 
                 $sizerRow.html(cells);
@@ -594,7 +600,7 @@ $.fn.floatThead = function(map){
             destroy: function(){
                 $table.css(layoutAuto);
                 $tableColGroup.remove();
-                $fthGrp.remove();
+                isChrome && $fthGrp.remove();
                 $newHeader.replaceWith($header);
                 $table.unbind('reflow');
                 reflowEvent = windowResizeEvent = containerScrollEvent = windowScrollEvent = function() {};
