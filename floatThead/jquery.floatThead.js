@@ -33,7 +33,7 @@
 var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];b.innerHTML="<!--[if gt IE "+ ++a+"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
 var isChrome = function(){
   if(ieVersion){
-    return false;
+    return true;
   }
   var $table = $("<table><colgroup><col></colgroup><tbody><tr><td style='width:10px'></td></tbody></table>");
   $('body').append($table);
