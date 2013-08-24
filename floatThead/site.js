@@ -59,14 +59,21 @@ var alignmentDebugger = function($table){
     var $floatContainer = $table.floatThead('getFloatContainer');
     var $floatTable = $floatContainer.find('table');
 
+
     _.templateSettings = {
         interpolate: /\{\{(.+?)\}\}/g,
         evaluate: /\{\%(.+?)\%\}/g
     };
     var tpl = _.template('table width: {{tableWidth}}<br/>'+
-                         'float table width: {{floatTableWidth}}<br\>'+
+                         'float table width: {{floatTableWidth}}<br/>'+
                          'table cols: {{tableCols}}<br/>'+
-                         'float cols: {{floatCols}}');
+                         'float cols: {{floatCols}}</br>'+
+                         'float top: {{top}}</br>'+
+                         'float left: {{left}}</br>'+
+                         'float position: {{pos}}</br>'+
+                         'float height: {{height}}</br>'
+
+    );
 
     
     var recalc = function(){
@@ -80,11 +87,17 @@ var alignmentDebugger = function($table){
         });
         var tableWidth = $table.width();
         var floatTableWidth = $floatTable.width();
+        var floatContainerTop = $floatContainer.css("top");
+        var floatContainerLeft = $floatContainer.css("left");
         $tpl.html(tpl({
             tableWidth: tableWidth,
             floatTableWidth: floatTableWidth,
             tableCols: tableColsWidths.join(', '),
-            floatCols: floatColsWidths.join(', ')
+            floatCols: floatColsWidths.join(', '),
+            top: floatContainerTop,
+            left: floatContainerLeft,
+            pos: $floatContainer.css("position"),
+            height: $floatContainer.outerHeight()
         }));
         return false;
     }
