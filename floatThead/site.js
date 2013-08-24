@@ -3,13 +3,18 @@
 $(function(){
 
 	var href = window.location.href;
-    var pages = ['big-thead.htm', 'border-collapse.htm', 'datatable-with-reflow.htm', 'empty-table.htm', 'init-exceptions.htm', 'positioning-options.htm', 'row-groups.htm'];
+    var pages = ['big-thead.htm', 'border-collapse.htm', 'datatable-with-reflow.htm', 'empty-table.htm', 'init-exceptions.htm', 'positioning-options.htm', 'row-groups.htm', 'index.htm'];
 
     var list = [];
 	var $nav = $("ul#dynamic-nav");
 	_.each(pages, function(fn){
 			var url = "/floatThead/examples/"+fn;
-			var name = fn.replace(/-/g, ' ').replace(/(.*?)\.htm/, '$1');
+      var name;
+      if(fn == "index.htm"){
+        name = "Common use-case";
+      } else {
+			  name = fn.replace(/-/g, ' ').replace(/(.*?)\.htm/, '$1');
+      }
 			var rx = new RegExp(fn+"$");
 			var active = window.location.href.match(rx) ? "active" : "";
 			list.push("<li class='"+active+"'><a href='"+url+"'>"+name+"</a>");
