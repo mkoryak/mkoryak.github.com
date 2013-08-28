@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>jQuery.floatThead</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
-    <script src="https://rawgithub.com/mkoryak/floatThead/ie8fixes/jquery.floatThead.js"></script>
+    <!--<script src="https://rawgithub.com/mkoryak/floatThead/ie8fixes/jquery.floatThead.js"></script>-->
     <!--<script src="https://rawgithub.com/mkoryak/floatThead/master/jquery.floatThead.js"></script>-->
-    <!--<script type='text/javascript' src="../jquery.floatThead.js"></script>-->
+    <script type='text/javascript' src="../jquery.floatThead.js"></script>
 
     <script type='text/javascript' src="../site.js"></script>
 
@@ -58,9 +58,22 @@
 
     <div class='row'>
         <div class='span12' id='intro'>
-            <h1>Common Use-Case</h1>
+            <h1>Common Use-Case: Window Scrolling</h1>
+            <p>
+                The table header sticks to the top of the page as you scroll down. This is done via absolute positioning it there, you can change it to use fixed positioning if you set <code>useAbsolutePositioning</code> to false.
+            </p>
+            <p>
+                Absolute positioning is a good default because you do not need to call <code>$table.floatThead("reflow")</code> if the table's position changes because of some changes in the DOM
+            </p>
+            <pre class="prettyprint">
+$('table').floatThead({
+    scrollingTop: 81,
+    useAbsolutePositioning: true //the default value
+});
+            </pre>
 
-            The table header is positioned absolutely while the page scrolls.
+            <p><a href="#" id="makeFixed">Re-initialize plugin with fixed positioning</a></p>
+            <p>floated header is using <strong id="posType">position:absolute</strong></p>
 
             <div class='wrap' id='wrap'>
                 <table class='table'>
@@ -197,7 +210,18 @@
             $('table').floatThead({
                 scrollingTop: 81
             });
-            alignmentDebugger($('table'));
+          //  alignmentDebugger($('table'))
+            var useAbs = true;
+            $("#makeFixed").on("click", function(e){
+                e.preventDefault();
+                useAbs = !useAbs;
+                $('table').floatThead('destroy').floatThead({
+                    scrollingTop: 81,
+                    useAbsolutePositioning: useAbs
+                });
+                $(this).text("Re-initialize plugin with "+(useAbs ? "fixed" : "absolute") +" positioning");
+                $("#posType").text("position: "+(useAbs ? "absolute" : "fixed"))
+            })
         });
 
     </script>
