@@ -2,7 +2,7 @@
  * jQuery.floatThead
  * Copyright (c) 2012 - 2013 Misha Koryak - https://github.com/mkoryak/floatThead
  * Licensed under Creative Commons Attribution-NonCommercial 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
- * Date: 8/28/13
+ * Date: 8/29/13
  *
  * @projectDescription lock a table header in place while scrolling - without breaking styles or events bound to the header
  *
@@ -410,8 +410,7 @@
 
 
 
-        var positionFn =  function(eventType){
-
+        return function(eventType){
           if(eventType == 'windowScroll'){
             windowTop = $window.scrollTop();
             windowLeft = $window.scrollLeft();
@@ -424,6 +423,10 @@
             scrollingContainerTop = $scrollContainer.scrollTop();
             scrollContainerLeft =  $scrollContainer.scrollLeft();
           }
+          if(isChrome && (windowTop < 0 || windowLeft < 0)){ //chrome overscroll effect at the top of the page - breaks fixed positioned floated headers
+            return;
+          }
+
           if(absoluteToFixedOnScroll){
             if(eventType == 'windowScrollDone'){
               changePositioning(true); //change to absolute
@@ -436,8 +439,8 @@
 
           tableOffset = $table.offset();
           var top, left, tableHeight;
-     //     console.log("locked: "+locked+" use abs: "+useAbsolutePositioning)
-          //absolute positioning
+//        console.log("locked: "+locked+" use abs: "+useAbsolutePositioning)
+
           if(locked && useAbsolutePositioning){ //inner scrolling, absolute positioning
             if (tableContainerGap >= scrollingContainerTop) {
               var gap = tableContainerGap - scrollingContainerTop;
@@ -460,8 +463,6 @@
               refloat(); //scrolling within table. header floated
             }
             left =  0;
-
-            //fixed positioning:
           } else if(locked && !useAbsolutePositioning){ //inner scrolling, fixed positioning
             if (tableContainerGap > scrollingContainerTop) {
               top = tableOffset.top - windowTop;
@@ -489,7 +490,6 @@
           }
           return {top: top, left: left};
         };
-        return positionFn;
       }
       /**
        * returns a function that caches old floating container position and only updates css when the position changes
@@ -553,14 +553,18 @@
         repositionFloatContainer(calculateFloatContainerPos('containerScroll'), false);
       };
 
-      var windowResizeEvent = function(){
-        updateScrollingOffsets();
-        calculateScrollBarSize();
+      var ensureReflow = function(){
         flow = reflow();
         var badReflow = flow();
         if(badReflow){
           flow();
         }
+      };
+
+      var windowResizeEvent = function(){
+        updateScrollingOffsets();
+        calculateScrollBarSize();
+        ensureReflow();
         calculateFloatContainerPos = calculateFloatContainerPosFn();
         repositionFloatContainer = repositionFloatContainerFn();
         repositionFloatContainer(calculateFloatContainerPos('resize'), true, true);
@@ -568,11 +572,7 @@
       var reflowEvent = _.debounce(function(){
         calculateScrollBarSize();
         updateScrollingOffsets();
-        flow = reflow();
-        var badReflow = flow();
-        if(badReflow){
-          flow();
-        }
+        ensureReflow();
         calculateFloatContainerPos = calculateFloatContainerPosFn();
         repositionFloatContainer(calculateFloatContainerPos('reflow'), true);
       }, 1);
