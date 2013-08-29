@@ -308,7 +308,7 @@
       }
 
 
-      function refloat(){
+      function refloat(){ //make the thing float
         if(!headerFloated){
           headerFloated = true;
           $table.css(layoutFixed);
@@ -318,7 +318,7 @@
           setHeaderHeight();
         }
       }
-      function unfloat(){
+      function unfloat(){ //put the header back into the table
         if(headerFloated){
           headerFloated = false;
           $newHeader.detach();
@@ -352,7 +352,7 @@
       function reflow(){
         var i;
         var numCols = columnNum(); //if the tables columns change dynamically since last time (datatables) we need to rebuild the sizer rows and get new count
-        var flow = function(){
+        return function(){
           var badReflow = false;
 
           var $rowCells = getSizingRow($table, $tableCells, $fthCells, ieVersion);
@@ -381,7 +381,6 @@
           }
           return badReflow;
         };
-        return flow;
       }
 
       /**
@@ -437,7 +436,7 @@
 
           tableOffset = $table.offset();
           var top, left, tableHeight;
-
+     //     console.log("locked: "+locked+" use abs: "+useAbsolutePositioning)
           //absolute positioning
           if(locked && useAbsolutePositioning){ //inner scrolling
             if (tableContainerGap >= scrollingContainerTop) {
@@ -489,9 +488,6 @@
               top = scrollingTop;
             }
             left = tableOffset.left - windowLeft;
-            if(ieVersion == 8){
-              left++; //TODO: not a fan of this. need to figure out why this is needed or find a better way around it
-            }
           }
           return {top: top, left: left};
         };
