@@ -1,6 +1,6 @@
 ---
 layout: page
-title: 'Another Note to Dogself'
+title: ''
 ---
 {% include JB/setup %}
 
