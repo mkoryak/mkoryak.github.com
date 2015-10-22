@@ -8,11 +8,11 @@ highlighter: pygments
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : Another Note to Dogself
-tagline: Why do I need a tagline?
+title : 
+tagline: 
 author :
   name : Misha Koryak
-  email :
+  email : mkoryak@gmail.com
   github : mkoryak
   twitter : catmanrhymes
   feedburner :
